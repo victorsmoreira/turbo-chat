@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+victor:
+  username: victor-moreira
+  password_digest: password
+  display_name: "Victor Moreira"
+
+horacio:
+  username: horacio-troian
+  password_digest: password2
+  display_name: "Horacio Troian"
