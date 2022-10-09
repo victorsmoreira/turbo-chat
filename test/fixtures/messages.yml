@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: "Message on room one"
+  room: one
+
+two:
+  content: "Message on room two"
+  room: two
