@@ -1,0 +1,12 @@
+<p><%= notice %></p>
+
+<h1>Rooms</h1>
+
+<% @rooms.each do |room| %>
+  <h2><%= room.title %></h2>
+  <%= link_to "Show", room_path(room) %>
+  <%= link_to "Edit", edit_room_path(room) %>
+  <%= link_to "Delete", room_path(room), method: :delete %>
+<% end %>
+
+<%= link_to "Create a room", new_room_path %>
