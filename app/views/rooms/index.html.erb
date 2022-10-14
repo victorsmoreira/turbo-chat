@@ -1,12 +1,7 @@
 <p><%= notice %></p>
 
-<h1>Rooms</h1>
+<h1 class="font-bold text-4xl mb-12">Rooms</h1>
 
-<% @rooms.each do |room| %>
-  <h2><%= room.title %></h2>
-  <%= link_to "Show", room_path(room) %>
-  <%= link_to "Edit", edit_room_path(room) %>
-  <%= link_to "Delete", room_path(room), method: :delete %>
-<% end %>
+<%= render partial: "rooms/index/room", collection: @rooms, as: :room %>
 
-<%= link_to "Create a room", new_room_path %>
+<%= link_to "Create a room", new_room_path, class: "mt-4 w-40 auto block bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-3 px-4 rounded-full" %>
