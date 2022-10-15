@@ -25,6 +25,9 @@ class RoomsController < ApplicationController
   end
 
   def edit
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/index/form", locals: { room: @room }) }
+    end
   end
 
   def update
@@ -32,7 +35,7 @@ class RoomsController < ApplicationController
       if @room.update(room_params)
         format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/index/room", locals: { room: @room }) }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/index/form", locals: { room: @room }), status: :unprocessable_entity  }
       end
     end
   end
