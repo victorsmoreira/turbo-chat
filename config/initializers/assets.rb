@@ -9,5 +9,7 @@ Rails.application.config.assets.version = "1.0"
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.prefix = "/dev-assets"
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Enable tailwind rebuild on bin/dev
+Rails.application.config.assets.prefix = "/dev-assets"

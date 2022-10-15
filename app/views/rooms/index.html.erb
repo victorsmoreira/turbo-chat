@@ -1,7 +1,14 @@
-<p><%= notice %></p>
+<% if notice.present? %>
+  <div class="mb-4 bg-teal-100 border-l-4 border-teal-500 text-teal-700 p-4" role="notice">
+    <p><%= notice %></p>
+  </div>
+<% end %>
 
 <h1 class="font-bold text-4xl mb-12">Rooms</h1>
 
-<%= render partial: "rooms/index/room", collection: @rooms, as: :room %>
+<%#= turbo_stream_from "rooms" %>
+<div id="rooms">
+  <%= render partial: "rooms/index/room", collection: @rooms, as: :room %>
+</div>
 
 <%= link_to "Create a room", new_room_path, class: "mt-4 w-40 auto block bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-3 px-4 rounded-full" %>

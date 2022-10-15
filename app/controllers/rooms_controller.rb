@@ -1,5 +1,7 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: :show
+  include ActionView::RecordIdentifier
+
+  before_action :set_room, only: [:show, :edit, :update, :destroy]
 
   def index
     @rooms = Room.all
@@ -19,6 +21,27 @@ class RoomsController < ApplicationController
       redirect_to rooms_path, notice: "Room was successfully created."
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @room.update(room_params)
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/index/room", locals: { room: @room }) }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @room.destroy
+
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(dom_id(@room)) }
     end
   end
 
