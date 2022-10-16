@@ -8,7 +8,7 @@
 
 <%#= turbo_stream_from "rooms" %>
 <div id="rooms">
-  <%= render partial: "rooms/index/room", collection: @rooms, as: :room %>
+  <%= render partial: "rooms/room", collection: @rooms, as: :room %>
 </div>
 
 <%= link_to "Create a room", new_room_path, class: "mt-4 w-40 auto block bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-3 px-4 rounded-full" %>

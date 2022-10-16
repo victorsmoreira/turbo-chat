@@ -26,16 +26,17 @@ class RoomsController < ApplicationController
 
   def edit
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/index/form", locals: { room: @room }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/form", locals: { room: @room }) }
+      format.html { redirect_to root_path }
     end
   end
 
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/index/room", locals: { room: @room }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/room", locals: { room: @room }) }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/index/form", locals: { room: @room }), status: :unprocessable_entity  }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/form", locals: { room: @room }), status: :unprocessable_entity  }
       end
     end
   end
