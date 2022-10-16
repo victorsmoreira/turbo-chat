@@ -26,7 +26,10 @@ class RoomsController < ApplicationController
 
   def edit
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/form", locals: { room: @room }) }
+      format.turbo_stream { render turbo_stream: [
+        turbo_stream.replace(dom_id(@room), partial: "rooms/form", locals: { room: @room }),
+        turbo_stream.remove("notice")
+      ] }
       format.html { redirect_to root_path }
     end
   end
@@ -45,7 +48,10 @@ class RoomsController < ApplicationController
     @room.destroy
 
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(dom_id(@room)) }
+      format.turbo_stream { render turbo_stream: [
+        turbo_stream.remove(dom_id(@room)),
+        turbo_stream.remove("notice")
+      ] }
     end
   end
 
