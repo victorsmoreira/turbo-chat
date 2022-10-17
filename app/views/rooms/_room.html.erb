@@ -1,12 +1,12 @@
 <%= tag.div id: dom_id(room), class: "room flex h-16 py-4 border-b border-solid border-gray-200 last:border-none" do %>
-  <%= link_to room_path(room), class: "flex-1 flex px-2", title: room.title do %>
+  <%= link_to room_path(room), class: "flex flex-1 px-2", title: room.title do %>
     <%= image_tag "chat-bubble.svg", size: 20 %>
     <h2 class="ml-2 px-3 py-1"><%= room.title %></h2>
   <% end %>
-  <%= link_to edit_room_path(room), class: "px-2 py-1", title: "Edit", data: { turbo_stream: true } do %>
+  <%= link_to edit_room_path(room), class: "w-10 m-auto", title: "Edit", data: { turbo_stream: true } do %>
     <%= image_tag "pencil-square.svg", size: 20 %>
   <% end %>
-  <%= link_to room_path(room), class: "px-2 py-1", title: "Delete", data: { turbo_confirm: "Are you sure?", turbo_method: :delete } do %>
+  <%= link_to room_path(room), class: "w-10 m-auto", title: "Delete", data: { turbo_confirm: "Are you sure?", turbo_method: :delete } do %>
     <%= image_tag "trash.svg", size: 20 %>
   <% end %>
 <% end %>
