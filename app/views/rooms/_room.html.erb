@@ -6,7 +6,7 @@
   <%= link_to edit_room_path(room), class: "px-2 py-1", title: "Edit", data: { turbo_stream: true } do %>
     <%= image_tag "pencil-square.svg", size: 20 %>
   <% end %>
-  <%= link_to room_path(room), class: "px-2 py-1", title: "Delete", data: { turbo_method: :delete } do %>
+  <%= link_to room_path(room), class: "px-2 py-1", title: "Delete", data: { turbo_confirm: "Are you sure?", turbo_method: :delete } do %>
     <%= image_tag "trash.svg", size: 20 %>
   <% end %>
 <% end %>

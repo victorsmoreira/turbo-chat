@@ -12,4 +12,10 @@ class RoomTest < ActiveSupport::TestCase
     assert room.errors.added? :title, :blank
     assert room.errors.added? :title, :too_short, count: 3
   end
+
+  test "messages are destroyed when a room is destroyed" do
+    assert_difference -> { Message.count } => -1 do
+      rooms(:one).destroy!
+    end
+  end
 end
