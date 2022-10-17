@@ -1,26 +1,28 @@
-<%= tag.div id: dom_id(room), class: "w-full flex border-b border-solid border-gray-200 last:border-none" do %>
-  <%= form_with model: room, method: :patch, class: "w-full" do |form| %>
-    <% if room.errors.any? %>
-      <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mt-4" role="alert">
-        <p class="font-bold"><%= pluralize(room.errors.count, "error") %>:</p>
-        <% room.errors.each do |error| %>
-          <p><%= error.full_message %></p>
-        <% end %>
+<%= turbo_frame_tag dom_id(room), class: "room block border-solid border-b border-gray-200 last:border-none" do %>
+  <div class="w-full flex"></div>
+    <%= form_with model: room, method: :patch, class: "w-full" do |form| %>
+      <% if room.errors.any? %>
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mt-4" role="alert">
+          <p class="font-bold"><%= pluralize(room.errors.count, "error") %>:</p>
+          <% room.errors.each do |error| %>
+            <p><%= error.full_message %></p>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="flex flex-col h-16">
+        <div class="w-full flex m-auto">
+          <div class="flex flex-1 px-2">
+            <%= image_tag "chat-bubble.svg", size: 20, class: "mr-2" %>
+            <%= form.text_field :title, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2" %>
+          </div>
+          <%= link_to rooms_path, title: "Discard changes", class: "w-10 m-auto" do %>
+            <%= image_tag "x-circle.svg", size: 24 %>
+          <% end %>
+          <%= form.button name: :submit, title: "Save room title", class: "w-10 m-auto" do %>
+            <%= image_tag "check-circle.svg", size: 24 %>
+          <% end %>
+        </div>
       </div>
     <% end %>
-    <div class="flex flex-col h-16">
-      <div class="w-full flex m-auto">
-        <div class="flex flex-1 px-2">
-          <%= image_tag "chat-bubble.svg", size: 20, class: "mr-2" %>
-          <%= form.text_field :title, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-1/2" %>
-        </div>
-        <%= link_to rooms_path, title: "Discard changes", class: "w-10 m-auto", data: { turbo_stream: true } do %>
-          <%= image_tag "x-circle.svg", size: 24 %>
-        <% end %>
-        <%= form.button name: :submit, title: "Save room title", class: "w-10 m-auto" do %>
-          <%= image_tag "check-circle.svg", size: 24 %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+  </div>
 <% end %>

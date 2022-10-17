@@ -1,13 +1,8 @@
 class RoomsController < ApplicationController
-  before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_room, only: %i[show edit update destroy]
 
   def index
     @rooms = Room.all
-
-    respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.update("rooms", partial: "rooms/room", collection: @rooms, as: :room) }
-      format.html
-    end
   end
 
   def show
