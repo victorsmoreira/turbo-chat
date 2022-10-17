@@ -17,6 +17,18 @@ class RoomsSystemTest < ApplicationSystemTestCase
     within("##{dom_id(rooms(:one))}") { assert_selector "h2", text: "Change title" }
   end
 
+  test "that edit can be cancelled" do
+    visit rooms_path
+
+    assert_selector "h2", text: "Room one"
+
+    within("##{dom_id(rooms(:one))}") { click_link "Edit" }
+    fill_in "room[title]", with: "Change title"
+    click_link "Discard changes"
+
+    within("##{dom_id(rooms(:one))}") { assert_selector "h2", text: "Room one" }
+  end
+
   test "that rooms can be deleted" do
     visit rooms_path
 
