@@ -1,6 +1,4 @@
 class RoomsController < ApplicationController
-  include ActionView::RecordIdentifier
-
   before_action :set_room, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -27,7 +25,7 @@ class RoomsController < ApplicationController
   def edit
     respond_to do |format|
       format.turbo_stream { render turbo_stream: [
-        turbo_stream.replace(dom_id(@room), partial: "rooms/form", locals: { room: @room }),
+        turbo_stream.replace(@room, partial: "rooms/form", locals: { room: @room }),
         turbo_stream.remove("notice")
       ] }
       format.html { redirect_to root_path }
@@ -37,9 +35,9 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/room", locals: { room: @room }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@room, partial: "rooms/room", locals: { room: @room }) }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(dom_id(@room), partial: "rooms/form", locals: { room: @room }), status: :unprocessable_entity  }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@room, partial: "rooms/form", locals: { room: @room }), status: :unprocessable_entity  }
       end
     end
   end
@@ -49,7 +47,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream { render turbo_stream: [
-        turbo_stream.remove(dom_id(@room)),
+        turbo_stream.remove(@room),
         turbo_stream.remove("notice")
       ] }
     end
