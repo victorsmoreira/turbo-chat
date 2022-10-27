@@ -6,19 +6,30 @@ class RoomsController < ApplicationController
   end
 
   def show
+    @rooms = Room.order(updated_at: :desc)
+
+    render variants: [:original] if params[:original].present?
   end
 
   def new
     @room = Room.new
+
+    render turbo_stream: [
+      turbo_stream.append("rooms", partial: "rooms/form", locals: { room: @room }),
+      turbo_stream.update("notice")
+    ]
   end
 
   def create
     @room = Room.new(room_params)
 
     if @room.save
-      redirect_to rooms_path, notice: "Room was successfully created."
+      render turbo_stream: [
+        turbo_stream.replace("new_room", partial: "rooms/room", locals: { room: @room }),
+        turbo_stream.update("notice", html: "<p class='p-2'>Room was successfully created.</p>".html_safe)
+      ]
     else
-      render :new, status: :unprocessable_entity
+      render turbo_stream: turbo_stream.replace(@room, partial: "rooms/form", locals: { room: @room }), status: :unprocessable_entity
     end
   end
 
@@ -26,7 +37,7 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.turbo_stream { render turbo_stream: [
         turbo_stream.replace(@room, partial: "rooms/form", locals: { room: @room }),
-        turbo_stream.remove("notice")
+        turbo_stream.update("notice")
       ] }
       format.html { redirect_to root_path }
     end
@@ -35,7 +46,10 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@room, partial: "rooms/room", locals: { room: @room }) }
+        format.turbo_stream { render turbo_stream: [
+          turbo_stream.replace(@room, partial: "rooms/room", locals: { room: @room }),
+          turbo_stream.update("notice", html: "<p class='p-2'>Room was successfully updated.</p>".html_safe)
+        ] }
       else
         format.turbo_stream { render turbo_stream: turbo_stream.replace(@room, partial: "rooms/form", locals: { room: @room }), status: :unprocessable_entity  }
       end
@@ -48,7 +62,7 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.turbo_stream { render turbo_stream: [
         turbo_stream.remove(@room),
-        turbo_stream.remove("notice")
+        turbo_stream.update("notice", html: "<p class='p-2'>Room <i>#{@room.title}</i> was deleted.</p>".html_safe)
       ] }
     end
   end

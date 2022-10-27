@@ -1,6 +1,6 @@
-<%= turbo_frame_tag dom_id(room), class: "room block border-solid border-b border-gray-200 last:border-none" do %>
+<%= turbo_frame_tag room, class: "room block border-solid border-b border-gray-200 last:border-none" do %>
   <div class="w-full flex"></div>
-    <%= form_with model: room, method: :patch, class: "w-full" do |form| %>
+    <%= form_with model: room, class: "w-full" do |form| %>
       <% if room.errors.any? %>
         <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mt-4" role="alert">
           <p class="font-bold"><%= pluralize(room.errors.count, "error") %>:</p>

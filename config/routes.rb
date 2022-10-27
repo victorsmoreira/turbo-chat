@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     # resources :messages
   end
 
+  resource :about, only: :show
+
   root "rooms#index"
 end

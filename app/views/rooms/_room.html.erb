@@ -1,4 +1,4 @@
-<%= turbo_frame_tag dom_id(room), class: "room block border-solid border-b border-gray-200 last:border-none" do %>
+<%= turbo_frame_tag room, class: "room block border-solid border-b border-gray-200 last:border-none" do %>
   <div class="flex h-16 py-4">
     <%= link_to room_path(room), class: "flex flex-1 px-2", title: room.title do %>
       <%= image_tag "chat-bubble.svg", size: 20 %>
