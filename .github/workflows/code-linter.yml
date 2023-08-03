@@ -1,0 +1,13 @@
+name: Code Linter
+
+on: [push]
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Brakeman
+      uses: victorsmoreira/brakeman-linter-action@v2.0.0
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
